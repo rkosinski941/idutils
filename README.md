@@ -1,17 +1,15 @@
-ID Utils 1.2.1
---------------------------------------------------------------------
-Summary
+## ID Utils 1.2.1
 
-
+## Summary
 ID Utils is a small library to help perform Protex identifications in bulk fashion.
 During the run a manifest file will be created that contains all paths that were changed.
 That manifest file can be used to reverse the operation (see Usage).
----------------------------------------------------------------------
-Building
+
+## Building
 
 mvn install is all that is required
-----------------------------------------------------------------------
-Usage
+
+## Usage
 
 Basic run
 ./idutils.sh <location of configuration file> 
