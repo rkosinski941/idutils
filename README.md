@@ -15,7 +15,7 @@ mvn install is all that is required
 ./idutils.sh <location of configuration file> 
 
 ### Basic run with manifest file 
-./idutils.sh <location of configuration file> <location of manifest file>
+./idutils.sh (location of configuration file) (location of manifest file)
 
 You must provide Protex connection configuration and the Protex project.
 Note:  This is currently using the Protex 6.X SDK, which *should* work with all 7.X systems.
