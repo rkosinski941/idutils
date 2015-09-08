@@ -12,7 +12,7 @@ mvn install is all that is required
 ## Usage
 
 ### Basic run
-./idutils.sh <location of configuration file> 
+./idutils.sh (location of configuration file) 
 
 ### Basic run with manifest file 
 ./idutils.sh (location of configuration file) (location of manifest file)
