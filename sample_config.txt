@@ -1,0 +1,75 @@
+#######################################
+## REQUIRED
+#######################################
+## Protex Server URI for which you want IDUtils to run
+protex.server.name=
+## email of user account with access to project want to run IDUtils on
+protex.user.name=
+## password for that user
+protex.password=
+
+## name of project where IDUtils is run
+idutils.project.name=
+
+## relative path for that project where IDUtils is applied
+## comment out in order to have it be the root path "/"
+## project name is not part of path!!!!
+idutils.project.path=/
+
+#######################################
+## REPORTING
+#######################################
+## Enable reporting to run IDUtils in display info mode only.
+## Optional reporting keys
+
+## Set to true to run IDUtils in report mode
+#idutils.report.mode=true
+## Set to true to display a list of all pending files
+#idutils.report.pending=true
+
+#######################################
+## OPTIONAL
+#######################################
+## Specify a string of search names, comma separated, that you wish to clear IDs for
+## Example: Copyright References
+idutils.search.names=
+
+
+### KB Component Information #########
+#######################################
+
+## ID of component.  IDs can be looked up via Tools->Component Manager
+## Default: Original Code
+#idutils.comp.id=
+
+## Version name of component trying to identify. Default: Unspecified
+#idutils.comp.version=
+
+## License name want to identify with. Default: Protex license for that component.
+#idutils.comp.license=
+
+## Usage value of identification made. 
+## Default: COMPONENT
+##Possible values: 
+## COMPONENT|COMPONENT_DYNAMIC_LIBRARY|COMPONENT_MERELY_AGGREGATED|COMPONENT_MODULE|
+## COMPONENT_SEPARATE_WORK|DEVELOPMENT_TOOL|FILE|IMPLEMENTATION_OF_STANDARD|ORIGINAL_CODE|PREREQUISITE|
+## PREREQUISITE_DYNAMIC_LIBRARY|PREREQUISITE_MERLY_AGGREGATED|PREREQUISITE_MODULE|PREREQUISITE_SEPARATE_WORK|
+## PREREQUISITE_SERVICE|SNIPPET
+# idutils.comp.usage=COMPONENT_DYNAMIC_LIBRARY
+
+
+### UPDATE SECTION ###
+######################
+
+## If you would like to update existing identified files, then use this section.
+## mark true if you want to perform an update
+idutils.comp.update=false
+## If you leave this blank, all files will be updated.
+#idutils.update.extensions=jar, dll, so, ocx
+
+
+## Library Locator Section
+## This will search through ALL the projects looking for components that match idutils.comp.usage
+#idutils.libloc=false
+## Set this to true if you want to just examine the 'idutils.project.name' instead of ALL projects
+#idutils.libloc.single.project=true
