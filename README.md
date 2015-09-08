@@ -9,7 +9,6 @@ That manifest file can be used to reverse the operation (see Usage).
 ---------------------------------------------------------------------
 Building
 
-
 mvn install is all that is required
 ----------------------------------------------------------------------
 Usage
@@ -26,4 +25,6 @@ Below is a sample property file, and the explanation behind the keys.
 
 Note:  This is currently using the Protex 6.X SDK, which *should* work with all 7.X systems.
 
+Sample configuration file
 
+For a sample file, please see: https://github.com/blackducksoftware/idutils/blob/master/sample_config.txt
