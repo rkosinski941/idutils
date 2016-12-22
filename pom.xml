@@ -12,20 +12,6 @@
   <artifactId>idutils</artifactId>
   <version>1.2.2-SNAPSHOT</version>
 
-  <!-- Push artifact to internal BLack Duck repo for integration testing -->
-  <distributionManagement>
-    <repository>
-      <id>artifactory.blackducksoftware.com</id>
-      <name>artifactory.blackducksoftware.com-releases</name>
-      <url>https://updates.suite.blackducksoftware.com/integrations/</url>
-    </repository>
-    <snapshotRepository>
-      <id>artifactory.blackducksoftware.com</id>
-      <name>artifactory.blackducksoftware.com-snapshots</name>
-      <url>https://updates.suite.blackducksoftware.com/integrations/</url>
-    </snapshotRepository>
-  </distributionManagement>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -225,52 +211,6 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
-        </configuration>
-      </plugin>
-      <!-- source -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <!-- doc -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>attach-javadocs</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.eluder.coveralls</groupId>
-        <artifactId>coveralls-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
