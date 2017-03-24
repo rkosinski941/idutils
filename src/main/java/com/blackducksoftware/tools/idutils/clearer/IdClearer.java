@@ -75,6 +75,10 @@ public abstract class IdClearer {
     private final Logger log = Logger.getLogger(this.getClass().getName());
 
     protected int count = 0;
+	
+    // "dirty" bit meaning an ID was done so now we need to refresh the BOM
+    // preferably after we just finished doing IDs to a directory.
+    protected boolean needsRefresh = false;
 
     // FInalize both of these to make sure they do not get instantiated more than once.
     protected final IDUtilConfig configManager;
@@ -324,7 +328,7 @@ public abstract class IdClearer {
 	}
     }
 
-    protected int handleFolder(String path) throws SdkFault {
+    protected int handleFolder(String path) throws SdkFault, Exception {
 	int internalCount = 0;
 	log.info("Inspecting folder: " + path);
 	PartialCodeTree tree = protexServer.getInternalApiWrapper().getCodeTreeApi()
@@ -354,6 +358,13 @@ public abstract class IdClearer {
 	    }
 
 	}
+	// We just came back from ID a directory, check to see if we performed and IDs
+	// if we did, refresh the BOM
+	if (needsRefresh) {
+    	    log.info(internalCount
+    			+ " pending identification(s) are being Cleaned");
+    	    refreshBom();
+        }
 	return internalCount;
     }
 
@@ -370,7 +381,8 @@ public abstract class IdClearer {
 
 	if (hasPendingIds(tree) && condition(tree, path)) {
 	    log.info(path + " has pending ids");
-
+	    // set the refresh bit to true so when the directory is completed the project will be refreshed
+            needsRefresh=true;
 	    List<CodeMatchType> codeMatchTypes = new ArrayList<CodeMatchType>();
 	    codeMatchTypes.add(CodeMatchType.PRECISION);
 	    List<CodeMatchDiscovery> codeDiscoveries = protexServer
@@ -450,6 +462,8 @@ public abstract class IdClearer {
 	    Long start = d.getTime();
 	    protexServer.getInternalApiWrapper().getBomApi().refreshBom(
 		    configManager.getProjId(), true, false);
+	    // clear the refresh bit
+	    needsRefresh = false;
 	    d = new Date();
 	    Long finish = d.getTime();
 	    Long refreshmill = finish - start;
@@ -486,7 +500,7 @@ public abstract class IdClearer {
 	// log.info("Adding Identification for " + path);
 	protexServer.getInternalApiWrapper().getIdentificationApi()
 		.addCodeMatchIdentification(projId, path, idRequest,
-			BomRefreshMode.SYNCHRONOUS);
+			BomRefreshMode.SKIP);
 
     }
 
