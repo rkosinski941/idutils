@@ -79,6 +79,9 @@ public abstract class IdClearer {
     // "dirty" bit meaning an ID was done so now we need to refresh the BOM
     // preferably after we just finished doing IDs to a directory.
     protected boolean needsRefresh = false;
+	
+    // Counter for number of IDs to refresh
+    protected int refreshedCount = 0;
 
     // FInalize both of these to make sure they do not get instantiated more than once.
     protected final IDUtilConfig configManager;
@@ -307,7 +310,13 @@ public abstract class IdClearer {
 		}
 	    }
 
-	    refreshBom();
+		// We just came back from ID a directory, check to see if we performed and IDs
+		// if we did, refresh the BOM
+		if (needsRefresh) {
+	    	    log.info(refreshedCount
+	    			+ " pending identification(s) are being Cleaned");
+	    	    refreshBom();
+	    }
 	}
 
 	writeToManifest();
@@ -361,7 +370,7 @@ public abstract class IdClearer {
 	// We just came back from ID a directory, check to see if we performed and IDs
 	// if we did, refresh the BOM
 	if (needsRefresh) {
-    	    log.info(internalCount
+    	    log.info(refreshedCount
     			+ " pending identification(s) are being Cleaned");
     	    refreshBom();
         }
@@ -381,8 +390,6 @@ public abstract class IdClearer {
 
 	if (hasPendingIds(tree) && condition(tree, path)) {
 	    log.info(path + " has pending ids");
-	    // set the refresh bit to true so when the directory is completed the project will be refreshed
-            needsRefresh=true;
 	    List<CodeMatchType> codeMatchTypes = new ArrayList<CodeMatchType>();
 	    codeMatchTypes.add(CodeMatchType.PRECISION);
 	    List<CodeMatchDiscovery> codeDiscoveries = protexServer
@@ -464,6 +471,8 @@ public abstract class IdClearer {
 		    configManager.getProjId(), true, false);
 	    // clear the refresh bit
 	    needsRefresh = false;
+	    // reset the counter
+	    refreshedCount = 0;
 	    d = new Date();
 	    Long finish = d.getTime();
 	    Long refreshmill = finish - start;
@@ -501,6 +510,10 @@ public abstract class IdClearer {
 	protexServer.getInternalApiWrapper().getIdentificationApi()
 		.addCodeMatchIdentification(projId, path, idRequest,
 			BomRefreshMode.SKIP);
+	// set the refresh bit to true so when the directory is completed the project will be refreshed
+        needsRefresh=true;
+        // increment the nodes refreshed counter
+	refreshedCount++;
 
     }
 
